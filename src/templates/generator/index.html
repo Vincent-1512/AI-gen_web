@@ -1,39 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card custom-card">
+            <div class="card-header bg-primary text-white fw-bold">
+                🕒 Lịch sử tạo Web
+            </div>
+            <div class="list-group list-group-flush" style="max-height: 700px; overflow-y: auto;">
+                <a href="{% url 'index' %}" class="list-group-item list-group-item-action fw-bold text-success">
+                    + Tạo dự án mới
+                </a>
+
+                {% for site in history %}
+                <a href="?id={{ site.id }}"
+                    class="list-group-item list-group-item-action {% if request.GET.id == site.id|stringformat:'s' %}bg-light border-start border-4 border-primary{% endif %}">
+                    <strong>{{ site.topic }}</strong>
+                    <br><small class="text-muted">{{ site.created_at|date:"d/m/Y H:i" }}</small>
+                </a>
+                {% empty %}
+                <div class="list-group-item text-muted small">Chưa có lịch sử nào.</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
         <div class="card custom-card p-4 mb-4 border-top border-primary border-4">
             <h4 class="mb-3 fw-bold">Khởi tạo dự án mới</h4>
             <form method="POST">
                 {% csrf_token %}
                 <div class="input-group input-group-lg">
-                    <input type="text" name="topic" class="form-control"
-                        placeholder="VD: Đặt vé máy bay, Shop giày thể thao..." required value="{{ topic }}">
-                    <button type="submit" class="btn btn-primary px-4 fw-bold">🪄 Tạo Website</button>
-                </div>
-                <div class="form-text mt-2 text-muted">
-                    Hệ thống sẽ tự động phân tích và sinh ra giao diện HTML/CSS kèm theo Form đăng nhập.
+                    <input type="text" name="topic" class="form-control" placeholder="VD: Đặt vé máy bay..." required
+                        value="{% if not request.GET.id %}{{ topic }}{% endif %}">
+                    <button type="submit" class="btn btn-primary px-4 fw-bold" id="submitBtn">🪄 Tạo Website</button>
                 </div>
             </form>
         </div>
-    </div>
-</div>
 
-{% if generated_html %}
-<div class="row">
-    <div class="col-12">
+        {% if generated_html %}
         <div class="card custom-card overflow-hidden mb-5">
             <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
                 <span class="fw-semibold">Kết quả: {{ topic }}</span>
-                <span class="badge bg-success">Hoàn tất</span>
+                <span class="badge bg-success">Đã lưu</span>
             </div>
             <div class="bg-white" style="height: 650px;">
                 <iframe srcdoc="{{ generated_html }}" width="100%" height="100%" frameborder="0"
                     style="border: none;"></iframe>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
-{% endif %}
+
+<script>
+    // JS hiệu ứng Loading xoay xoay
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const submitBtn = document.getElementById("submitBtn");
+
+        form.addEventListener("submit", function () {
+            submitBtn.classList.remove("btn-primary");
+            submitBtn.classList.add("btn-secondary");
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Đang tạo...';
+        });
+    });
+</script>
 {% endblock %}
