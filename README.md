@@ -1,20 +1,30 @@
-# 🚀 AI Web Builder - Đồ án Tích hợp AI tạo Website
-**Sinh viên thực hiện:** Huỳnh Tiến Đạt (Vincent)
+# 🚀 Đồ án: AI Web Builder (Hệ thống tạo Website tự động bằng AI)
+**Sinh viên thực hiện:** Huỳnh Tiến Đạt-N23DCDK011 (Vincent)
 
 ## 📌 Giới thiệu
-Ứng dụng web cho phép người dùng nhập một chủ đề bất kỳ, hệ thống sẽ gọi API của AI để tự động sinh ra mã nguồn HTML/CSS (có tích hợp Form đăng nhập và Bootstrap 5). 
-Hệ thống được thiết kế chạy hoàn toàn trên môi trường **Docker**, sử dụng framework **Django** và cơ sở dữ liệu **SQLite**.
+Hệ thống sử dụng Gemini API để sinh mã nguồn HTML/CSS/JS tự động dựa trên prompt của người dùng. Dự án được triển khai toàn diện trên môi trường Docker với Django framework. Hệ thống có phân quyền Admin và Staff riêng biệt.
 
 ## ⚙️ Yêu cầu hệ thống
 - Máy tính đã cài đặt **Docker** và **Docker Compose**.
 
 ## 🚀 Hướng dẫn chạy dự án
 
-**Bước 1: Cấu hình API Key**
+**Bước 1: Cấu hình biến môi trường**
 - Đổi tên file `.env.example` thành `.env`.
-- Mở file `.env` và dán Gemini API Key của thầy vào biến `GEMINI_API_KEY`.
+- Điền API Key Gemini của thầy vào biến `GEMINI_API_KEY` trong file `.env`.
 
-**Bước 2: Khởi chạy hệ thống bằng Docker**
+**Bước 2: Khởi chạy bằng Docker**
 Mở Terminal tại thư mục gốc của dự án và chạy lệnh:
-```bash
-docker-compose up --build
+`docker-compose up --build`
+
+**Bước 3: Trải nghiệm hệ thống**
+Truy cập vào trình duyệt: `http://localhost:8000/`
+
+**Tài khoản Test có sẵn:**
+1. Tài khoản Superuser (Truy cập được trang Quản trị `/admin/`):
+   - Username: `vincent`
+   - Password: `[123]`
+2. Tài khoản Staff (Chỉ dùng chức năng AI):
+   - Username: `@admin`
+   - Password: `[@Admin123456789]`
+3. Tạo tài khoản để sử dụng chức năng AI.

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Đăng ký - AI Web Builder{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-5 col-lg-4">
+        <div class="card custom-card p-4">
+            <h3 class="text-center mb-4 fw-bold text-success">Đăng Ký Tài Khoản</h3>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label text-muted fw-semibold">Tên đăng nhập</label>
+                    <input type="text" name="username" class="form-control form-control-lg" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted fw-semibold">Mật khẩu</label>
+                    <input type="password" name="password" class="form-control form-control-lg" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label text-muted fw-semibold">Nhập lại mật khẩu</label>
+                    <input type="password" name="password_confirm" class="form-control form-control-lg" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-lg w-100 mt-3 fw-bold">Tạo Tài Khoản</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <span class="text-muted">Đã có tài khoản?</span>
+                <a href="{% url 'login' %}" class="text-decoration-none fw-bold">Đăng nhập ngay</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
