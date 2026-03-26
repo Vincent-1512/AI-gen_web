@@ -1,0 +1,26 @@
+# Environment variables
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-freeze.txt
+.eggs/
+*.egg-info/
+*.egg
+
+# Django
+db.sqlite3
+*.log
+
+# Docker
+.dockerignore
+docker-compose.yml
+Dockerfile
