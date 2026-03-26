@@ -3,6 +3,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('generator.urls')), # Link trang chủ vào app generator
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('django.contrib.auth.urls')), # Kích hoạt bộ Auth của Django
+    path('', include('generator.urls')), # Trỏ trang chủ về app generator
 ]
