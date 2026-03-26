@@ -32,6 +32,11 @@
             <div class="d-flex align-items-center">
                 {% if user.is_authenticated %}
                 <span class="me-3 text-secondary">Xin chào, <strong>{{ user.username }}</strong>!</span>
+
+                {% if user.is_superuser %}
+                <a href="/admin/" class="btn btn-outline-primary btn-sm me-2">⚙️ Quản trị</a>
+                {% endif %}
+
                 <form method="post" action="{% url 'logout' %}" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-outline-danger btn-sm">Đăng xuất</button>

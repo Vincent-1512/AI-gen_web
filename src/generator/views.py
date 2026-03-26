@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from google import genai
 import os
 from .models import GeneratedWebsite
+from django.shortcuts import redirect
 
 # SỬA LỖI 1: Gán trực tiếp API key nếu bạn chưa cấu hình file .env
 # Tuy nhiên, hãy nhớ xóa nó đi hoặc dùng .env trước khi push lên GitHub nhé!
@@ -56,3 +57,15 @@ def index(request):
         'topic': topic,
         'history': history
     })
+
+@login_required
+def dispatch_login(request):
+    """
+    Hàm điều hướng dựa trên quyền hạn (Role)
+    """
+    if request.user.is_superuser:
+        # Nếu là Admin tối cao (như tài khoản Vincent), cho vào trang quản trị luôn
+        return redirect('/admin/')
+    else:
+        # Nếu là Staff hoặc User bình thường, cho ra trang chủ Viewsite luôn
+        return redirect('/')

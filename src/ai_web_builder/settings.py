@@ -93,3 +93,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # --- CÁC CÀI ĐẶT CỦA CHÚNG TA ---
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+LOGIN_REDIRECT_URL = 'dispatch_login'
+
+# Sau khi logout, quay về trang đăng nhập
+LOGOUT_REDIRECT_URL = 'login'
